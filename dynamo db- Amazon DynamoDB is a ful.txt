@@ -1,0 +1,137 @@
+dynamo db:- Amazon DynamoDB is a fully managed NoSQL database service provided by AWS. It is used to store and retrieve large amounts of structured and semi-structured data with low latency. AWS manages the infrastructure, scaling, availability, backups, and performance, so developers only focus on the application and data
+
+
+partition key :- A Partition Key uniquely identifies where data is stored inside DynamoDB.
+
+
+
+
+i have done the handson with the help of ecs + dyanamodb + python
+
+1.Create the dynamodb
+. go to dyanamodb 
+.create table
+.fill this 
+Table Name : Employees
+Partition Key : EmployeeId
+Type : String
+.create table
+
+2.create project folder - docker things
+.mkdir employee-app
+.cd employee-app
+.notepad app.py - put all the python code here 
+.create requirements.txt - your all configuration is here
+.notepad Dockerfile -it contain all the docker file
+. now build that docker image
+
+3.create ecr repository
+.aws console
+.ecr - create repository
+.now on cmd - login to ecr - tag docker image - push image to ecr
+
+4.create ecs cluster
+.aws console
+.ecs
+.create cluster
+
+5.create iam roles
+.iam
+.roles
+.create role
+.choose -aws service
+.attach policy - AmazonDynamoDBFullAccess_v2
+.role name (ecs-dynamodb-role)- what you want  -- here is connect with ecs through task defination
+.in the trust relationship you have to give the name of ecs so iam communicate with iam
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"    ----here
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+
+
+6.create task definition
+.ecs
+.task definition
+.create task definition
+Task Definition Family : employee-task
+
+Launch Type            : Fargate
+
+CPU                    : 1 vCPU
+
+Memory                 : 2 GB
+
+Task Role              : ecs-dynamodb-role   --it communicate with iam
+
+Task Execution Role    : ecsTaskExecutionRole
+Name        : Main
+
+Image URI   :
+422836431779.dkr.ecr.us-east-1.amazonaws.com/employee-api:latest --- this uri communicate with ecr
+
+Port        : 3000
+
+.now run ecs task from ecs cluster --run new task ,this option
+.navigate to ecs  -- task-- you see running - 1
+
+now ecs is running
+
+.verify it in dynamo db
+
+
+
+I developed a Python Flask application that stores employee data in DynamoDB. I created a DynamoDB table  with EmployeeId as the partition key. Then I containerized the application using Docker and pushed the image to Amazon ECR. After that, I created an ECS Fargate cluster, configured a task definition with the ECR image, and attached an IAM role with DynamoDB permissions. The Flask application running inside ECS used boto3 to interact with DynamoDB. Through the IAM role, the application received the required permissions and successfully stored employee data in the DynamoDB table.
+
+
+
+
+
+
+
+Create DynamoDB Table
+        ↓
+Create Flask Application
+        ↓
+Create Dockerfile
+        ↓
+Build Docker Image
+        ↓
+Push Image To ECR
+        ↓
+Create ECS Cluster
+        ↓
+Create IAM Role
+        ↓
+Create Task Definition
+        ↓
+Run ECS Task
+        ↓
+Flask Uses boto3
+        ↓
+DynamoDB Access Through IAM Role
+        ↓
+Data Stored Successfully
+
+
+
+
+
+
+
+create a dynamo db instance in aws
+create a python file and requirements file then createa  docker file for these file
+build and run the image check locally
+create a ecr repository
+now on cmd login , tag and then push your docker images into ecr
+
+now comes to ecs ;- here create ecs cluster then pull that ecr images into ecs through task definition
+now create a cluster in ecs
+now create a iam :- because provide access to your db

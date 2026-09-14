@@ -1,0 +1,82 @@
+Docker :- basically is a containerization platform where any code can we packed into a image and either host and share it to other user so . so no need to worry about sharing various code file and dependencies 
+
+
+earlier we use VM :- in this it rely on kernal that's why it need high performance machine when we want to use multiple vm 
+.it is comparatively slow also as container
+.it support multiple os as well 
+
+container :- it is light weight in nature because it run on os level not on kernal level and it esy to share also
+.they use a technology called containerization, which allows them to share the host operating system's kernel and libraries, while still providing isolation for the application and its dependencies
+
+
+steps:- you have code file that u want to deploy
+. i have python code 
+. i created a dockerfile of this code which contain 
+    -i have written over python file or if u use diff os then you mentioned this also 
+then the app folder that i'm using
+i use copy command to copy all of my code file in docker
+as well i use pip install to install all the dependencies of my python code
+
+.so now in terminal move to project folder 
+.build the image :- docker built -t image .
+.test locally with the run command :- docker run then image name
+
+now in cmd login to docker hub
+.tag the image with the image name and username (docker tag image:latest aditya123/image:latest)
+.push the image :- (docker push aditya123/image:latest)
+
+now the image stored you can pull it anywhere
+
+
+types of images:- two private and public 
+after deploying the image then through the docker hub i can change the authority public or private 
+
+or if you want to give some authority then u can  create an organanization in dockerhub then add member then they can access it 
+
+alternatives :-
+
+docker-compose :- Docker Compose is used to manage multiple containers together using a single YAML file. 
+.we pass the path of all the files in yaml file and uses a docker file also
+it run all the services at once
+
+docker swarm :- Docker Swarm is Docker's native container orchestration tool used to manage containers across multiple servers.
+the benfit over docker compose is it automatically create multiple container if any container fails
+.user for small production applications
+
+
+kubernates:- 
+Kubernetes is an enterprise-grade container orchestration(done automatimation part like scaling , managing ) platform used to deploy, manage, scale, and automate containerized applications across clusters of servers.
+.it uses pod instead of container which contain one or more container
+
+
+
+Steps.:- build :- docker build -t image
+.login to dockerhub through cmd
+.tag that image :- because it is difficult to find the image that you want to push with same name so it tagged with username and image name
+.push the image :- docker push username/image:latest
+.verify it on dockerhub
+
+
+
+#to pull on other machine
+you have to pull and run 
+.docker pull username/image:latest
+.docker run username/image:latest
+
+
+
+#when two image has same name then what does docker do is it overwrite the latest image and show the code of that image that is loaded at last
+. to get overcame from this docker uses version type like v1 and v2 kind of things
+
+
+
+docker client :- basically it is a command which is used to interact with docker ( docker run , docker build , etc )
+
+docker daemon :- it is heart of docker all the docker iamges and registry executed.
+
+dockerhub:- it a platform where user register there docker images so any user can pull it . it can be in the form of private or public images so need some permission if it is private . it is like GitHub but here you share your images instead of codebase.
+
+
+
+
+

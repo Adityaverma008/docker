@@ -1,0 +1,80 @@
+ECR (Elastic Container Registry)
+
+Amazon ECR is a managed container image registry service provided by AWS. It is used to store, manage, and share Docker images. AWS handles the infrastructure, availability, durability, and security of the registry, so developers can focus on building applications.
+
+##types :- private and public 
+private:- ony authorized user can access (it is controlled by the IAM through iam users , roles ,permission )
+public accesable to all;
+
+Step 1: Create an ECR Repository
+Open AWS Console.
+Search for ECR (Elastic Container Registry).
+Click Create Repository.
+Choose:
+Private Repository: Accessible only to authorized AWS users.
+Public Repository: Accessible to anyone who has permission or the public image URL.
+Enable Image Scanning (optional but recommended) to scan container images for security vulnerabilities.
+Click Create Repository.
+
+Step 2: Configure AWS CLI
+command :- aws configure
+it ask for these details you can get it by security credentials in profile section
+AWS Access Key ID
+AWS Secret Access Key
+Default Region Name (e.g. us-east-1)
+Default Output Format (json)
+
+after this verify it :_ aws sts get-caller-identity
+now navigate to docker folder 
+build the docker iamge :_ docker build -t aws-demo .
+verify the images :_ docker images
+
+now login to ecr :_ aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 422836431779.dkr.ecr.us-east-1.amazonaws.com
+
+tag the docker image (Tag the local image with the ECR repository URI) :_
+docker tag aws-demo:latest 422836431779.dkr.ecr.us-east-1.amazonaws.com/aws-demo:latest
+
+push the image to ecr :_ docker push 422836431779.dkr.ecr.us-east-1.amazonaws.com/aws-demo:latest
+
+now verify this by navigating to ecr repo in console :-
+
+
+
+##now anyone use this ecr who have docker link
+
+.login to ecr after aws configure
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 422836431779.dkr.ecr.us-east-1.amazonaws.com
+
+.pull that image :- docker pull 422836431779.dkr.ecr.us-east-1.amazonaws.com/aws-demo:latest
+
+.verify by "docker iamges" it shows iamge with latest word that is the pulled image
+
+.run that image 
+docker run -d -p 8080:80 422836431779.dkr.ecr.us-east-1.amazonaws.com/aws-demo:latest
+
+.now it is accessible to user
+
+
+
+Create ECR Repository
+        ↓
+Configure AWS CLI
+        ↓
+Build Docker Image
+        ↓
+Login to ECR
+        ↓
+Tag Docker Image
+        ↓
+Push Image to ECR
+        ↓
+Verify Image in ECR
+
+now this image is ready to use 
+
+
+
+
+
+
+

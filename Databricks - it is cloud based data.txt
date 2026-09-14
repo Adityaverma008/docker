@@ -1,0 +1,145 @@
+Databricks :- it is cloud based data intelligence platform built around apache spark that provide the collaborative environment for data scaling , analytics , data warehousing , machine learning , monitoring , data governance.
+.it is based on lakehouse architecture which means the combination of lake and warehouse which combine both the features which is data lake with the cheap storage such as s3 and warehouse for the governance layer and security
+
+.it enables the organization to store ,process , transform , analyze and goveren over the massive amount of data at single platform instead of maintaining multiple disconnected tools and systems.
+
+--earlier we are using apache spark for this but there it is capable of handling and procession massive data but for the MLflow and the AI things we are still rely on another platform so databricks introduced to get all the things at correct place.
+
+apache spark :- it handlese the massive data but in this platform somewhere it is lacking in feild of MLFlow , AI part , notesbooks which were introduced in databricks
+
+--lakehouse :- it is a collection of structure , unstructured and semi structured data at the low-cost storage units like s3 , azure data lake storage , google cloud storage.
+
+--warehouse :-It stores cleaned, transformed and business-ready data optimized for analytics and reporting and has high governance rules and faster performance.
+.followed acid properties
+.contain only structured data so it cost high
+
+ML and MLFlow :- ML is used in spark it provide  the ML operation for deployment you have to deploy on other platform but in MLFlow you have to no need to worry you can handle both things at one platform.
+
+notebooks:- it provide the development environment (python , scala , R , SQL)
+you can share you code also.
+
+batch processing:- process historical data
+streaming :-process real -time data
+
+
+catalog :- it is top level container used to organize schemas.
+schema :- it is a logical container that group related tables and views
+table :- it contain the actual data
+unity catalog:- it set the govenance rule and manage for the catalog , schema and table and it also manage the metadata of the original data
+
+Unity Catalog
+|
+ Catalog
+|
+ Schema
+|
+ Table
+|
+Actual Data
+
+
+
+unity catalog :- this gives a environment for the governance , management of our workspace.
+.it is a centralized system for organizing , securing , and discovering data across all the workspace and cloud environment.
+..three layers:- 
+catalog :- it is a collection of related schemas used to seprate data.
+
+schema :- a namespace inside a catalog used to logically grouping inside a catalog
+
+table :- actual object in row and columns.
+.Before unity catalog :- the data were stores in diff workspace so if anyone want to get the data from the diff workspace then it is difficult to see.
+.we have to maintain seprate management , governance for every workspace.
+.table is handled by the sql syntax.
+
+
+##Table :- 
+managed table :- this is normal table and the table and the schema is stores in databrick.
+if you drop the table it deleted both table and schema
+
+external table :- when you provide cloud location to table then it comes under external table.
+.in this if you drop the table only the schema is deleted because it stores in databricks but the data still stored in cloud
+
+you can provide useraccess by adding the user mail id in the principle box which is in permission section
+
+##volume :- like table volume is also a logical container to store unstructured and semi-structured data in datalake.
+.governed and managed by the catalog same as the table.
+. we can handle volume either with dbutils tools(more convenient) or python operation files.
+
+earlier it is stores in various folder which is difficult to access .everytime give the access of key and access key and sas token thorugh this user can get the access.
+
+. with this it has fine-grained access control in which the permission is based on the databricks level not on the storage unit.
+
+managed volume :- here the data stored in the databricks droping the means files will deleted.
+external volume :- here we passes the source of external like cloud so droping the volume doesnot means it will deleted from everywhere it still stores in cloud.
+
+.you can provide useraccess by adding the user mail id in the principle box which is in permission section
+
+
+
+
+pyspark vs sql :- When you use the PySpark DataFrame API, you write Python-like code that Spark translates into an optimized execution plan using the Catalyst Optimizer. While it feels like SQL doesn't have the same "shortcuts" or API flexibility, Spark SQL uses the exact same Catalyst Optimizer under the hood. Choosing between DataFrames and SQL is purely a matter of syntax preference; they compile into the identical underlying code, meaning neither is faster than the other.
+
+
+spark architecture :-
+User Code
+    |
+    v
+Driver Program
+    |
+    v
+Catalyst Optimizer -Improves the execution plan for better performance.
+    |
+    v
+Cluster Manager    - Centralized component that manages resources across the cluster.
+    |
+    v
+Worker Nodes      - task divided into chunks
+    |
+    v
+Executors         - here the task going to excute individual
+    |
+    v
+Tasks Execute on Partitions
+    |
+    v
+Results Returned to Driver    - collects the final results from executors and returns the output.
+
+
+
+
+
+
+
+
+
+
+                    LAKEHOUSE  (architecture layer )
+          (Architecture used by Databricks) contain raw data
+
+                           │
+                           ▼
+
+                     DELTA LAKE
+              (Storage Technology Layer) add governance and acid properties layer
+
+                           │
+                           ▼
+
+                    DELTA TABLES
+             (Customer, Sales, Orders)
+
+                           │
+                           ▼
+
+                DATA LAKE STORAGE
+                  (ADLS/S3/GCS)
+
+
+
+Atomicity: A transaction is executed completely or not at all.
+Consistency: A transaction keeps the database in a valid state.
+Isolation: Concurrent transactions do not affect each other's execution.
+Durability: Committed changes remain permanent even after system failures.
+
+parquet :_ Parquet is fast because it stores data column-wise, so queries read only the required columns instead of the entire file.
+

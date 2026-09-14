@@ -1,0 +1,110 @@
+GLUE:- AWS Glue is a fully managed serverless ETL (Extract, Transform, Load) service provided by AWS. It is used to discover, catalog, transform, and move data between different AWS services. AWS manages the infrastructure, scaling, availability, and execution, so developers focus only on the data processing logic.
+
+Steps1:- Create DynamoDB Table (it stores the original data )
+.aws console    
+.dynamodb
+.create table
+.add sample data 
+
+Steps2:- Create Glue Catalog Database(it stores the metadata of original data from the crawler )
+.aws console
+.glue
+.databases
+.add database
+
+step3:- create IAM role (it is used to give permission to glue so it can proceed to  fetch data from the dynamodb )
+.iam
+.roles
+.create role
+.aws service
+.glue
+.attach policies :- AWSGlueServiceRole, AmazonDynamoDBReadOnlyAccess
+.after this trust relationship :- (it is responsible for the connection with IAM and glue )
+
+
+step4:-create crawler :- it takes permission with iam and scan the dynamodb then after this stores the metadata into the catalog 
+.glue
+.crawlers
+.create crawlers
+.attach datasoucr (dynamodb) and attach table(employee:-name of dynamodb)
+.set iam roles
+.target database
+.scheduled :- on demand
+.create crawler
+
+.run crawler
+.select crawler name , run
+
+**till now dynamodb stores original data , crawler takes permission from iam then scan all the data & create metadata of it then stores it in data catalog
+
+# glue ETL job ( in this that metadata will fetch then transform bbased on choices then load it to s3)
+
+Step5:-
+.create s3 bucket
+.set the target path
+
+step6:- create glue  etl job
+.glue
+.visual etl
+.create job from blank graph
+.set job name
+.add source :select (aws glue data catalog ), database (employee-catalog-db),table(employees)
+here thourgh catalog table point to dynamodb table
+
+.add target :- select s3 , aws glue data catalog , s3://user-test-bucket-09/glue-output/ so the glue will connect to s3 , format - parquet
+.configure iam role in glue job :- select iam role
+
+
+now run glue job:-
+.glue - select job name :- then run :- (succeded)
+
+
+
+...now when data stores in s3 after transform we have to fetch that data
+now go to athena and select the database then run your query
+
+
+
+
+
+
+summary :- In my hands-on, DynamoDB stored the original employee data. A Glue Crawler scanned the DynamoDB table and created metadata in the Glue Data Catalog. I created an IAM role so Glue could access DynamoDB. Then I created a Glue ETL Job that read data from the catalog, transformed or processed the data, and loaded it into S3 as Parquet files. Finally, Athena can be used to run SQL queries on the processed data stored in S3, which is more efficient for analytics on large datasets.
+
+
+DynamoDB
+   ↓
+Original Data
+
+Crawler
+   ↓
+Schema Discovery
+
+Glue Catalog
+   ↓
+Metadata Only
+
+Glue Job
+   ↓
+Uses Metadata To Find Source
+   ↓
+Reads Original Data
+   ↓
+Transforms Data
+   ↓
+Stores In S3
+
+Athena
+   ↓
+Queries Data From S3
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,117 @@
+GitHub action :- it is GitHub built in ci/cd and automation tool that allow you to automate software workflows directly from GitHub repo using yaml files.
+it can build , test , scan , and deploy applications automatically whenever certain events occur.
+
+When a developer pushes code to GitHub, GitHub checks the event defined in the workflow file. If the event is push, the GitHub Action is triggered automatically. A temporary runner (usually Ubuntu) is created, and the repository code is downloaded into it. Then the required software (such as Python) and project dependencies are installed. After that, the build step is executed, which may involve installing packages, packaging the application, or building a Docker image. Next, GitHub Actions runs the testing command (for example, pytest), which executes the test files already written by the developer, such as test_login.py or test_user.py. If any test fails, the workflow stops and deployment is skipped. If all tests pass, GitHub Actions executes the deployment commands defined in the YAML file, such as deploying through Docker, SSH, Kubernetes, AWS, or Azure. If deployment succeeds, the workflow is marked as successful.
+
+
+
+terms :- 
+
+.workflows:- a workflow is the entire automation pipeline.
+.event :- an event triggers a workflow(like push , pull , release).
+. job :- job is a group of task executed on the same runner ( build , test , deploy ).
+
+step:- smallest execution unit means each command is a step.
+action :- reusable code block.                     
+runner :- machine where workflow executes ( os like ubuntu  , windows , macos).
+
+types of runners :- 
+.GitHub hosted runner :- provided by GitHub ( window , ubuntu , macos) 
+- no maintaince , easy setup
+.self hosted runner :- company manages it's own server ( full control , private network access , maintaince required ).
+
+
+
+*variable :- used for reusable configuration values. 
+.defined once then used it in yaml files.
+*secrets :- used to store sensitive information like passwords , api keys.
+*inputs:-values provided by the user while running workflow .
+*matrix strategy :- run the same job on multiple platforms (ubuntu , windows , macos ).
+
+
+diff deployment stages :-
+DEV
+↓
+UAT
+↓
+QA
+↓
+PROD
+
+* scheduled event :- cron based execution we can fix time period when the execution should start.
+
+
+
+Developer Pushes Code
+          ↓
+GitHub Action Triggered
+          ↓
+Checkout Code
+          ↓
+Install Dependencies
+          ↓
+Build Application
+          ↓
+Run Unit Tests
+          ↓
+Run Code Quality Check
+          ↓
+Create Artifact (JAR/WAR)
+          ↓
+Push Docker Image
+          ↓
+Deploy to Dev/UAT/Prod
+
+
+
+
+
+create GitHub repo
+create python file , dockerfile , requirements.txt(to install pytest), create python test file
+move to the folder in cmd and build and run docker file
+now copy the repo link and link it with the folder in cmd and push all the files in github
+create a dockerhub repo in dockerhub platform here all your github pushed images will be stored here
+
+now setup secret to store dockerhub password:-
+github repo-> setting->secrets and variable -> actions-> create new repository secret to add your username and password in two repository secret
+.now go to action cerate new workflow file -> insert the yaml file commit 
+
+now done when you make any changes on every push github will automatically build test and deploy and all the images is shown in dockerhub repo
+
+Create GitHub Repo
+        ↓
+Create Python Files
+        ↓
+Create Test Files
+        ↓
+Create Dockerfile
+        ↓
+Install Dependencies
+        ↓
+Run Tests Locally
+        ↓
+Build Docker Image Locally
+        ↓
+Push Code to GitHub
+        ↓
+Create Docker Hub Repository
+        ↓
+Add Docker Credentials as Secrets
+        ↓
+Create GitHub Actions Workflow
+        ↓
+Commit Workflow
+        ↓
+Push Code
+        ↓
+GitHub Actions Triggered
+        ↓
+Build
+        ↓
+Test
+        ↓
+Docker Build
+        ↓
+Docker Hub Push
+        ↓
+Success ✅

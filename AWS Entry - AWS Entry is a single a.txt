@@ -1,0 +1,82 @@
+AWS Entry :- AWS Entry is a single access portal that allows users to access AWS Accounts, AWS Console, CLI Credentials, SageMaker Unified Studio (SMUS), Query Editor, and Qlik using one login through AWS Identity Center.
+. it act as a single entry point for all aws-related services and applications.
+
+.AWS Entry serves as the governance and automation layer for Identity Center (AWS SSO) within the Mercedes-Benz environment.
+
+Smus ( sagemake unified studio ):- aws athena is not supported by aws identity center identities. so smus comes into the picture for handling similar workloads(queries on large datasets, complex anaylytics)
+
+.SMUS is the centralized platform for analytics, data exploration, querying, and project management.
+
+Qlik :- it is a business intelligence tool used for dashboard and reporting.
+. it is now managed through service now request instead of cli credentials.
+
+
+basically what the features does aws entry provided:-
+.Access to aws access portal 
+.access to aws account
+.access to aws management console
+.access to smus 
+.access to queryeditor of smus
+
+
+
+
+>>>>AWS permission management:- 
+(basically it provide the knowledge how the things running in the BG)
+
+Step 1: a new project is created in the aws entry 
+step 2:AWS Entry automatically creates standard roles like bi developer , dp developer , dp admin kind of roles auto created in it 
+step3:Now permissions are added to those roles by aws entry . These policies determine what the role can do
+step4:Groups are automatically created by aws entry but initially it is vacant in the aws entry.
+step 5: now aws entry connect group and roles for that account.
+step6:now when user logs in the aws entry now it can ask for the any of the access 
+step 7 : admin approves their acces 
+step 8: now aws entry will add that user into that group which is mapped with those permission and roles and The user gets the permissions of the Permission Set (Role) that is mapped to the group
+
+Project Created
+      ↓
+AWS Entry Onboarding Starts
+      ↓
+Permission Sets Created
+      ↓
+Policies Attached
+      ↓
+Groups Created
+      ↓
+Groups Linked To Roles
+      ↓
+User Joins Company
+      ↓
+User Logs Into AWS Entry
+      ↓
+User Requests Access
+      ↓
+Owner Reviews Request
+      ↓
+Owner Approves
+      ↓
+TE12357 Provisions Access
+      ↓
+User Added To Group
+      ↓
+Permission Set Assigned
+      ↓
+AWS Account Assignment Created
+      ↓
+User Sees AWS Account
+      ↓
+User Starts Working
+
+
+>>>AWS Entry ADP Platform Technical User Permissions Delegation Guide :-
+
+this is just a process checkup on the aws entry platform how to request for access through aws entry
+.Login to the AWS Entry Admin Portal using company credentials.
+.Select the appropriate Workspace (Domain + Owner/Deputy role).
+.Open the Entry Dashboard.
+.Click Delegate Permissions (it authorizes aws entry by creating and manage permission set and group )
+.Select the Technical User (TE12357) using the Client ID.
+.Grant the required permissions.
+
+
+
