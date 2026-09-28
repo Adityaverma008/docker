@@ -1,0 +1,5 @@
+The AWS Data Platform uses a Data Mesh model where the Platform Team provides the infrastructure, Domain Teams own and build data products, Governance Group defines standards and compliance rules, and the Enablement Team supports and trains teams, all coordinated through SAFe Agile processes and regular planning meetings.
+
+Mesh CDK is the framework used to build AWS Data Products. It provides a standardized 3-layer data architecture (Raw → Trusted → Shared), reusable infrastructure modules (PySpark, Fluent, Core, and Internal), and versioned releases stored in JFrog Artifactory. Data Products consume these releases automatically through CI/CD pipelines, ensuring consistency and faster development across the platform.
+
+Pulumi is a general-purpose Infrastructure as Code tool that supports multiple clouds and provides maximum flexibility. Mesh CDK is built on top of Pulumi and is specifically designed for the AWS Data Platform. It adds AWS Data Mesh standards, governance, CI/CD, data-sharing, security, and Data Product abstractions, enabling developers to create AWS Data Products much faster while following platform best practices.

@@ -1,0 +1,1081 @@
+What is AWS Data Platform?
+
+AWS Data Platform (ADP) is Mercedes-Benz's cloud-native Data Mesh platform built on AWS. It helps teams collect, process, share, analyze, and visualize vehicle and business data at large scale.
+
+Its main goal is to improve:
+
+Vehicle quality
+Fault detection
+Quality monitoring
+Analytics and reporting
+Data-driven decision making
+Why Was ADP Created?
+
+The old data warehouse approach faced several challenges:
+
+Growing Data Volume
+
+Examples:
+
+Vehicle telematics data
+Sensor data
+Operational data
+
+Data size grew from terabytes to potentially petabytes.
+
+More Users and Data Sources
+
+Many teams needed access to data:
+
+Engineering
+Quality Management
+After-Sales
+Analytics Teams
+
+More systems also started producing data.
+
+Advanced Analytics Requirements
+
+Business wanted modern capabilities like:
+
+Machine Learning (ML)
+Artificial Intelligence (AI)
+Natural Language Processing (NLP)
+
+Traditional systems struggled to support these efficiently.
+
+Faster Development
+
+Teams wanted:
+
+Self-service development
+Faster deployments
+Independent ownership of datasets
+
+Instead of waiting for a central team.
+
+Compliance Requirements
+
+Strict regulations had to be followed:
+
+GDPR
+Data Privacy
+Access Control
+Data Retention
+Secure Data Sharing
+Vision of ADP
+
+The vision is to create:
+
+A modern, cloud-native, self-service Data Mesh on AWS that provides excellent user experience, scalability, performance, governance, and security.
+
+In simple terms:
+
+Plain Text
+1
+Central DWH
+2
+↓
+3
+Federated Data Mesh
+Show more lines
+
+Each domain owns its own Data Products while sharing data safely.
+
+Project Scope
+1. Exploration
+
+Understand:
+
+Existing systems
+Data flows
+Business requirements
+
+before building the new platform.
+
+2. Data Mesh Platform
+
+Build a reusable platform that provides:
+
+Data Ingestion
+Data Storage
+ETL Processing
+Data Sharing
+Monitoring
+Security
+Access Control
+Data Quality
+Backup & Recovery
+CI/CD
+
+This is where Mesh CDK fits in.
+
+3. Federation
+
+Move from a centralized model:
+
+Plain Text
+1
+One Data Warehouse Team
+Show more lines
+
+to:
+
+Plain Text
+1
+Many Domain Teams
+Show more lines
+
+Each team owns its own Data Product.
+
+Examples:
+
+Plain Text
+1
+Finance DP
+2
+Sales DP
+3
+Vehicle DP
+4
+Warranty DP
+Show more lines
+4. Migration
+
+Migrate data from:
+
+Plain Text
+1
+Legacy Data Warehouse
+Show more lines
+
+to:
+
+Plain Text
+1
+AWS Data Mesh
+Show more lines
+
+Approximately:
+
+Plain Text
+1
+~100 Data Products
+Show more lines
+
+are expected.
+
+5. Ingest
+
+Build new cloud-native ETL pipelines.
+
+Examples:
+
+Plain Text
+1
+Source System
+2
+↓
+3
+Raw
+4
+↓
+5
+Trusted
+6
+↓
+7
+Shared
+Show more lines
+
+using Glue, Athena, Iceberg, Step Functions, etc.
+
+6. Visual Analytics
+
+Build a modern BI platform.
+
+Examples:
+
+Qlik
+Power BI
+Dashboards
+Reporting
+
+for thousands of users.
+
+7. DevOps & Operations
+
+Operate and continuously improve the platform.
+
+Responsibilities include:
+
+Monitoring
+Patching
+Security
+Cost Optimization
+New Features
+AI/ML capabilities
+Technology Stack
+
+ADP runs on the Helios Platform (formerly Hyperion) which is hosted on AWS.
+
+Key AWS services:
+
+Storage
+Plain Text
+1
+Amazon S3
+Show more lines
+
+Stores data in:
+
+Plain Text
+1
+Raw
+2
+Trusted
+3
+Shared
+Show more lines
+
+layers.
+
+ETL Processing
+Plain Text
+1
+AWS Glue
+Show more lines
+
+Used for:
+
+PySpark jobs
+Data transformations
+Data ingestion
+Governance
+Plain Text
+1
+AWS Lake Formation
+Show more lines
+
+Used for:
+
+Permissions
+Data Sharing
+Access Management
+Workflow Orchestration
+Plain Text
+1
+AWS Step Functions
+Show more lines
+
+Used to orchestrate ETL pipelines.
+
+Query Engine
+Plain Text
+1
+Amazon Athena
+Show more lines
+
+Used for serverless SQL queries.
+
+Serverless Processing
+Plain Text
+1
+AWS Lambda
+Show more lines
+
+Used for lightweight automation and governance processes.
+
+Compute
+Plain Text
+1
+Amazon EC2
+Show more lines
+
+Used where dedicated compute resources are required.
+
+Business Context
+
+Business systems generate data:
+
+Plain Text
+1
+Vehicle Systems
+2
+SAP
+3
+CRM
+4
+Telematics
+5
+Operational Systems
+Show more lines
+
+↓
+
+Data enters ADP
+
+↓
+
+Data Products transform it
+
+↓
+
+Analytics and BI solutions consume it
+
+↓
+
+Business users gain insights
+
+Interview Answer (1 Minute)
+
+AWS Data Platform (ADP) is Mercedes-Benz's cloud-native Data Mesh platform built on AWS. It was created to handle growing data volumes, support advanced analytics, improve development speed, and ensure data compliance. The platform enables domain teams to build and own Data Products using services such as S3, Glue, Lake Formation, Athena, Lambda, and Step Functions. Data is managed through a Raw → Trusted → Shared architecture and shared securely across teams through a federated self-service Data Mesh model.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What is AWS Data Platform?
+
+AWS Data Platform (ADP) is Mercedes-Benz's cloud-native Data Mesh platform built on AWS. It helps teams collect, process, share, analyze, and visualize vehicle and business data at large scale.
+
+Its main goal is to improve:
+
+Vehicle quality
+Fault detection
+Quality monitoring
+Analytics and reporting
+Data-driven decision making
+Why Was ADP Created?
+
+The old data warehouse approach faced several challenges:
+
+Growing Data Volume
+
+Examples:
+
+Vehicle telematics data
+Sensor data
+Operational data
+
+Data size grew from terabytes to potentially petabytes.
+
+More Users and Data Sources
+
+Many teams needed access to data:
+
+Engineering
+Quality Management
+After-Sales
+Analytics Teams
+
+More systems also started producing data.
+
+Advanced Analytics Requirements
+
+Business wanted modern capabilities like:
+
+Machine Learning (ML)
+Artificial Intelligence (AI)
+Natural Language Processing (NLP)
+
+Traditional systems struggled to support these efficiently.
+
+Faster Development
+
+Teams wanted:
+
+Self-service development
+Faster deployments
+Independent ownership of datasets
+
+Instead of waiting for a central team.
+
+Compliance Requirements
+
+Strict regulations had to be followed:
+
+GDPR
+Data Privacy
+Access Control
+Data Retention
+Secure Data Sharing
+Vision of ADP
+
+The vision is to create:
+
+A modern, cloud-native, self-service Data Mesh on AWS that provides excellent user experience, scalability, performance, governance, and security.
+
+In simple terms:
+
+Plain Text
+1
+Central DWH
+2
+↓
+3
+Federated Data Mesh
+Show more lines
+
+Each domain owns its own Data Products while sharing data safely.
+
+Project Scope
+1. Exploration
+
+Understand:
+
+Existing systems
+Data flows
+Business requirements
+
+before building the new platform.
+
+2. Data Mesh Platform
+
+Build a reusable platform that provides:
+
+Data Ingestion
+Data Storage
+ETL Processing
+Data Sharing
+Monitoring
+Security
+Access Control
+Data Quality
+Backup & Recovery
+CI/CD
+
+This is where Mesh CDK fits in.
+
+3. Federation
+
+Move from a centralized model:
+
+Plain Text
+1
+One Data Warehouse Team
+Show more lines
+
+to:
+
+Plain Text
+1
+Many Domain Teams
+Show more lines
+
+Each team owns its own Data Product.
+
+Examples:
+
+Plain Text
+1
+Finance DP
+2
+Sales DP
+3
+Vehicle DP
+4
+Warranty DP
+Show more lines
+4. Migration
+
+Migrate data from:
+
+Plain Text
+1
+Legacy Data Warehouse
+Show more lines
+
+to:
+
+Plain Text
+1
+AWS Data Mesh
+Show more lines
+
+Approximately:
+
+Plain Text
+1
+~100 Data Products
+Show more lines
+
+are expected.
+
+5. Ingest
+
+Build new cloud-native ETL pipelines.
+
+Examples:
+
+Plain Text
+1
+Source System
+2
+↓
+3
+Raw
+4
+↓
+5
+Trusted
+6
+↓
+7
+Shared
+Show more lines
+
+using Glue, Athena, Iceberg, Step Functions, etc.
+
+6. Visual Analytics
+
+Build a modern BI platform.
+
+Examples:
+
+Qlik
+Power BI
+Dashboards
+Reporting
+
+for thousands of users.
+
+7. DevOps & Operations
+
+Operate and continuously improve the platform.
+
+Responsibilities include:
+
+Monitoring
+Patching
+Security
+Cost Optimization
+New Features
+AI/ML capabilities
+Technology Stack
+
+ADP runs on the Helios Platform (formerly Hyperion) which is hosted on AWS.
+
+Key AWS services:
+
+Storage
+Plain Text
+1
+Amazon S3
+Show more lines
+
+Stores data in:
+
+Plain Text
+1
+Raw
+2
+Trusted
+3
+Shared
+Show more lines
+
+layers.
+
+ETL Processing
+Plain Text
+1
+AWS Glue
+Show more lines
+
+Used for:
+
+PySpark jobs
+Data transformations
+Data ingestion
+Governance
+Plain Text
+1
+AWS Lake Formation
+Show more lines
+
+Used for:
+
+Permissions
+Data Sharing
+Access Management
+Workflow Orchestration
+Plain Text
+1
+AWS Step Functions
+Show more lines
+
+Used to orchestrate ETL pipelines.
+
+Query Engine
+Plain Text
+1
+Amazon Athena
+Show more lines
+
+Used for serverless SQL queries.
+
+Serverless Processing
+Plain Text
+1
+AWS Lambda
+Show more lines
+
+Used for lightweight automation and governance processes.
+
+Compute
+Plain Text
+1
+Amazon EC2
+Show more lines
+
+Used where dedicated compute resources are required.
+
+Business Context
+
+Business systems generate data:
+
+Plain Text
+1
+Vehicle Systems
+2
+SAP
+3
+CRM
+4
+Telematics
+5
+Operational Systems
+Show more lines
+
+↓
+
+Data enters ADP
+
+↓
+
+Data Products transform it
+
+↓
+
+Analytics and BI solutions consume it
+
+↓
+
+Business users gain insights
+
+Interview Answer (1 Minute)
+
+AWS Data Platform (ADP) is Mercedes-Benz's cloud-native Data Mesh platform built on AWS. It was created to handle growing data volumes, support advanced analytics, improve development speed, and ensure data compliance. The platform enables domain teams to build and own Data Products using services such as S3, Glue, Lake Formation, Athena, Lambda, and Step Functions. Data is managed through a Raw → Trusted → Shared architecture and shared securely across teams through a federated self-service Data Mesh model.
+
+Provide your feedback on BizChat
+You said:
+Datamesh Overview This sections describes a clear, expert-level explanation of Data Mesh, how ADP(AWS Data Platform) aligns with it, and the organization structure and team responsibilities. Contents Data Mesh Core Principles of Data Mesh: Examples of Data Mesh Data Mesh Architecture How ADP Relates to Data Mesh ADP Organizational Structure (aligned to Data Mesh) 1. Data Platform Team / Core Team 2. Domain / Data Product Teams 3. Governance Group 4. Tenant Enablement Team 5. Onboarding Team Escalation & Support Flow (How issues are managed) Additional Key Q&A for Clarity Data Mesh Data Mesh is a decentralized architectural approach for managing data at scale — where data is treated as a product and owned by domain teams (who understand the data best) instead of being centralized in a single data lake or warehouse team. Core Principles of Data Mesh: Domain Ownership – Each business domain (e.g., After-Sales, Finance, HR) owns and manages its data as a data product. Data as a Product – Data products are discoverable, trustworthy, and reusable by others (with clear ownership, quality, and purpose). Self-Serve Data Platform – A central platform team provides common tools, infrastructure, and automation so domain teams can build and manage data products easily. Federated Governance – Governance and compliance are shared across all teams, ensuring consistent privacy, quality, and security standards. Examples of Data Mesh The After-Sales domain team in ADP owns a Vehicle Service History data product — it contains car details, service records, parts replaced, etc. Other teams like Warranty, Spare Parts, or R&D can consume this dataset directly from the platform without dependency on After-Sales engineers. Data Mesh Architecture The Data Mesh implementation within ADP (AWS Data Platform) is structured as follows: How ADP Relates to Data Mesh ADP (AWS Data Platform) is implemented using the Data Mesh principles inside the AWS ecosystem. The ADP Core Team acts as the Data Platform Team, providing shared infrastructure, tools (Glue, Databricks, Step Functions, etc.), and compliance mechanisms. Domain Teams (like AFH – Aftersales Data Hub) act as Data Product Teams, creating and maintaining domain-specific data products. Governance Group and Enablement Teams provide compliance enforcement and support to onboard or guide other teams. So in short: ADP = A practical implementation of the Data Mesh concept for Mercedes-Benz’s data platform. ADP Organizational Structure (aligned to Data Mesh) ADP is structured into five main team types, each playing a unique role in the Data Mesh ecosystem: 1. Data Platform Team / Core Team Led by: Data Platform Product Owner Purpose: Build and maintain the core ADP platform that other teams use. Responsibilities: Manage platform infrastructure (S3, Databricks, Glue, Step Functions, etc.) CI/CD, IaC (Pulumi), and workflow orchestration Provide shared tools for monitoring, lineage, and dashboards (Grafana, QuickSight) Ensure data availability, security, compliance, and cost tracking Handle incidents, patches, and user service requests Provide “foundation templates” for new data products Example: ADP Core Team ensures AFH domain teams can focus only on creating and maintaining their data products — not worrying about infrastructure. 2. Domain / Data Product Teams Led by: Data Product Owner (from business department) Purpose: Build and manage domain-specific data products. Responsibilities: Ingest, transform, and expose domain data as “data products” Ensure data quality, freshness, and completeness Handle consumer requests (APIs, transformations, access) Manage access rights and apply governance policies Maintain documentation (metadata, lineage, usage) Ensure compliance with privacy rights (GDPR deletions, corrections) Handle first-line issue resolution for data product failures Example: AFH domain team owns the After-Sales data products used across ADP. 3. Governance Group Led by: Stakeholders from all teams Purpose: Define and enforce policies, standards, and compliance mechanisms across the platform. Responsibilities: Define rules for security, privacy, and compliance (e.g. GDPR, EU Data Act) Validate data sharing and retention practices Oversee policy compliance across all domains Resolve issues involving governance or regulatory risks Example: The “Application Enablement Team” handles GDPR compliance and security enforcement within ADP Mesh. 4. Tenant Enablement Team Led by: Application Enablement Team product owner Purpose: Provide hands-on support and best practices to domain teams. Responsibilities: Help domain teams adopt platform tools Provide training, consulting, and troubleshooting guidance Support lifecycle management and onboarding for data products Bridge communication between platform and domain teams Example: Guides domain teams on how to set up monitoring dashboards or implement best practices for data quality. 5. Onboarding Team Led by: Tenant Application Onboarding Team product owner Purpose: Manage onboarding of new Data Platform (DP) accounts. Responsibilities: Coordinate between Data Platform Core and domain stakeholders Provision new accounts, IAM roles, and foundational services Ensure compliance and governance alignment from Day 1 Provide access to documentation, templates, and CI/CD setup Escalation & Support Flow (How issues are managed) Level Team Handles Example Issue Domain/Data Product Team Workflow, data quality, or consumer request issues Transformation failure, missing data Platform/Core Team Infrastructure, tool, or CI/CD issues Databricks job failure, storage outage Enablement Team Compliance or access violations GDPR deletion not processed, policy breach Onboarding Team Guidance & training Data quality best practices, onboarding support Additional Key Q&A for Clarity Q1. Why Data Mesh instead of a traditional Data Lake? Traditional data lakes centralize ownership, causing bottlenecks and slow delivery. Data Mesh decentralizes ownership to domain experts, improving agility, scalability, and accountability. Q2. How does governance stay consistent across teams? Through Federated Governance, where the Governance Group defines common rules and tooling ensures automatic policy enforcement across all data products. Q3. What tools does ADP use to support Data Mesh? ETL & Processing: AWS Glue, Databricks Workflow Orchestration: AWS Step Functions, Databricks Workflows IaC: Pulumi Monitoring & Dashboards: Grafana, QuickSight CI/CD: GitHub Actions Storage: S3, DBFS(Databricks ) Compliance: GDPR Tracker, Central Metric Monitoring Q4. What is a Data Product in ADP terms? In data mesh, a data product is just one useful dataset packaged properly (with owner, purpose, quality checks, and easy access). Data Product Example: Vehicle Service History What it is: A dataset that shows everything done on a car after it was sold. What it has: Car details (VIN, model, year) Service dates and mileage Parts replaced Cost and warranty info Who owns it: The After-Sales Service Team. Who uses it: Warranty team → check for fraud. Spare parts team → forecast demand. Customer team → send reminders. R&D → find common failures. Think of it like this: instead of asking the service team every time, anyone in the company can pick up this ready-to-use data product just like an app from an app store. That’s what “data product” means in data mesh: A ready-to-use, trustworthy dataset created and owned by one domain, but usable by many others.
+
+
+Copilot said:
+Data Mesh Overview - Simple Summary
+What is Data Mesh?
+
+Data Mesh is a modern approach where data ownership is distributed to business teams instead of being managed by one central data team.
+
+Traditional approach:
+
+Plain Text
+1
+All Teams
+2
+↓
+3
+Central Data Team
+4
+↓
+5
+Reports & Analytics
+Show more lines
+
+Data Mesh approach:
+
+Plain Text
+1
+Domain Team A → Owns Data Product A
+2
+ 
+3
+Domain Team B → Owns Data Product B
+4
+ 
+5
+Domain Team C → Owns Data Product C
+Show more lines
+
+Each team is responsible for its own data.
+
+4 Core Principles of Data Mesh
+1. Domain Ownership
+
+Business teams own their data.
+
+Example:
+
+After-Sales Team owns service history data.
+Warranty Team owns warranty data.
+Spare Parts Team owns parts data.
+
+Since they understand the data best, they maintain it.
+
+2. Data as a Product
+
+Data should be treated like a product.
+
+A good data product must have:
+
+Clear owner
+Documentation
+High data quality
+Monitoring
+Easy access
+Defined consumers
+
+Think:
+
+Plain Text
+1
+Data Product = Software Product
+Show more lines
+3. Self-Service Data Platform
+
+A central team provides common tools and infrastructure.
+
+Examples:
+
+AWS Glue
+Databricks
+S3
+Step Functions
+GitHub Actions
+Monitoring
+
+This allows domain teams to focus on business logic instead of infrastructure.
+
+4. Federated Governance
+
+Governance is shared across teams.
+
+Common standards are defined for:
+
+Security
+GDPR
+Data Quality
+Naming Conventions
+Data Sharing
+
+All teams must follow them.
+
+How ADP Uses Data Mesh
+
+ADP (AWS Data Platform) is Mercedes-Benz's implementation of Data Mesh.
+
+Plain Text
+1
+Data Mesh Concept
+2
+↓
+3
+Implemented as
+4
+↓
+5
+AWS Data Platform (ADP)
+Show more lines
+
+ADP applies all Data Mesh principles using AWS services.
+
+ADP Team Structure
+
+ADP has 5 major team types.
+
+1. Data Platform Team (Core Team)
+Purpose
+
+Build and maintain the platform.
+
+Responsibilities
+AWS infrastructure
+S3
+Glue
+Databricks
+Step Functions
+CI/CD
+Pulumi
+Monitoring
+Security
+Cost Management
+Goal
+
+Provide a platform so domain teams can build data products quickly.
+
+2. Domain / Data Product Teams
+Purpose
+
+Build and own business data products.
+
+Responsibilities
+Data ingestion
+Data transformation
+Data quality
+Documentation
+Data sharing
+GDPR compliance
+Consumer support
+Example
+
+AFH team owns:
+
+Plain Text
+1
+Vehicle Service History DP
+2
+Warranty DP
+Show more lines
+3. Governance Group
+Purpose
+
+Define rules and standards.
+
+Responsibilities
+GDPR
+Security policies
+Data retention policies
+Data sharing rules
+Naming standards
+Compliance checks
+4. Tenant Enablement Team
+Purpose
+
+Help teams use ADP correctly.
+
+Responsibilities
+Training
+Support
+Best practices
+Troubleshooting
+Monitoring guidance
+Data quality guidance
+
+Think of them as ADP consultants.
+
+5. Onboarding Team
+Purpose
+
+Bring new teams into ADP.
+
+Responsibilities
+Create AWS accounts
+IAM setup
+Initial platform configuration
+Documentation access
+Initial CI/CD setup
+Escalation Flow
+
+When an issue occurs:
+
+Level 1
+
+Domain Team
+
+Handles:
+
+Pipeline failures
+Data quality issues
+Missing records
+
+Example:
+
+Plain Text
+1
+Glue ETL failed
+Show more lines
+Level 2
+
+Platform Team
+
+Handles:
+
+Infrastructure issues
+CI/CD failures
+Storage problems
+
+Example:
+
+Plain Text
+1
+Databricks outage
+2
+S3 issue
+3
+GitHub Action failure
+Show more lines
+Level 3
+
+Governance / Enablement
+
+Handles:
+
+GDPR issues
+Security violations
+Compliance concerns
+Access problems
+Example Data Product
+Vehicle Service History
+
+Contains:
+
+Plain Text
+1
+VIN
+2
+Vehicle Model
+3
+Service Date
+4
+Mileage
+5
+Parts Replaced
+6
+Warranty Details
+7
+Repair Cost
+Show more lines
+
+Owned by:
+
+Plain Text
+1
+After-Sales Team
+Show more lines
+
+Consumers:
+
+Plain Text
+1
+Warranty Team
+2
+Spare Parts Team
+3
+Customer Service Team
+4
+R&D Team
+Show more lines
+
+Instead of repeatedly asking the After-Sales team for data, other teams use the ready-made Data Product directly.
+
+Why Data Mesh Instead of Traditional Data Lake?
+Traditional Data Lake
+Plain Text
+1
+All Requests
+2
+↓
+3
+Central Data Team
+4
+↓
+5
+Bottleneck
+Show more lines
+
+Problems:
+
+Slow delivery
+Single team becomes overloaded
+Less business ownership
+Data Mesh
+Plain Text
+1
+Domain Teams
+2
+↓
+3
+Own Their Data
+4
+↓
+5
+Faster Delivery
+Show more lines
+
+Benefits:
+
+✅ Better scalability
+
+✅ Faster development
+
+✅ Clear ownership
+
+✅ Higher data quality
+
+✅ Less dependency on central teams
+
+ADP Technology Stack
+Storage
+Plain Text
+1
+Amazon S3
+Show more lines
+ETL
+Plain Text
+1
+AWS Glue
+2
+Databricks
+3
+`
+Show more lines
+Orchestration
+Plain Text
+1
+AWS Step Functions
+2
+Databricks Workflows
+Show more lines
+IaC
+Plain Text
+1
+Pulumi
+2
+Mesh CDK
+Show more lines
+Monitoring
+Plain Text
+1
+Grafana
+2
+QuickSight
+Show more lines
+CI/CD
+Plain Text
+1
+GitHub Actions
+Show more lines
+Compliance
+Plain Text
+1
+GDPR Tracker
+2
+Monitoring Solutions
+Show more lines
+Interview Answer (Best Summary)
+
+Data Mesh is a decentralized data architecture where domain teams own and manage their data as Data Products. ADP (AWS Data Platform) is Mercedes-Benz's implementation of Data Mesh on AWS. The Platform Team provides infrastructure and automation, Domain Teams build and own Data Products, the Governance Group defines compliance and security standards, and Enablement/Onboarding teams support adoption. This model improves scalability, ownership, data quality, and development speed compared to a traditional centralized data lake approach.
