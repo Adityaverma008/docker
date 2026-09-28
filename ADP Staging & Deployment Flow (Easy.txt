@@ -1,0 +1,684 @@
+ADP Staging & Deployment Flow (Easy Explanation)
+
+The main idea is:
+
+👉 Code must move in order:
+
+Plain Text
+1
+DEV → INT → PROD
+Show more lines
+
+You cannot directly deploy to PROD.
+
+This ensures the same code is tested before reaching production.
+
+Overall Flow
+Step 1: Develop Code
+
+Create a feature branch:
+
+Plain Text
+1
+main
+2
+└── feature/customer-pipeline
+Show more lines
+
+Write your Glue jobs, Iceberg tables, Step Functions, etc.
+
+Step 2: Deploy Feature Branch to DEV
+
+Run GitHub Action:
+
+Plain Text
+1
+01 - Deploy Branch to DEV
+Show more lines
+
+What happens?
+
+Resources are created in DEV AWS account
+Only your branch resources are deployed
+Other developers are unaffected
+
+Example:
+
+Plain Text
+1
+S3 Bucket
+2
+Glue Job
+3
+IAM Role
+4
+Step Function
+Show more lines
+Step 3: Test in DEV
+
+Verify:
+
+✅ Glue jobs run
+
+✅ Data loaded
+
+✅ Iceberg tables created
+
+✅ Dashboards work
+
+✅ No errors
+
+Step 4: Merge to Main
+
+Once testing is complete:
+
+Shell
+1
+git checkout main
+2
+git merge feature/customer-pipeline
+3
+git push
+Show more lines
+
+Now code exists on the main branch.
+
+Step 5: Create Release
+
+Run:
+
+Plain Text
+1
+03 - Create Release
+Show more lines
+
+This does:
+
+Code quality checks
+Unit tests
+Sonar checks
+Deployment preview
+
+If successful:
+
+Plain Text
+1
+dev-1.0.0
+Show more lines
+
+tag is created.
+
+Example:
+
+Plain Text
+1
+dev-1.0.0
+Show more lines
+
+means:
+
+Ready for INT deployment.
+
+Step 6: Deploy to INT
+
+Run:
+
+Plain Text
+1
+04 - Deploy Release to INT
+Show more lines
+
+Only commits with a DEV release tag can be deployed.
+
+Example:
+
+Plain Text
+1
+dev-1.0.0
+Show more lines
+
+↓
+
+Deploy to INT
+
+↓
+
+Creates:
+
+Plain Text
+1
+int-1.0.0
+Show more lines
+
+tag.
+
+Meaning:
+
+Successfully deployed to INT.
+
+Step 7: Test in INT
+
+Perform:
+
+Integration Testing
+User Testing
+Data Validation
+End-to-End Testing
+
+Verify:
+
+Plain Text
+1
+Source → Raw → Trusted → Shared
+Show more lines
+
+works correctly.
+
+Step 8: Deploy to PROD
+
+Run:
+
+Plain Text
+1
+05 - Deploy Release to PROD
+Show more lines
+
+Only releases already deployed to INT are allowed.
+
+Example:
+
+Plain Text
+1
+int-1.0.0
+Show more lines
+
+↓
+
+Deploy
+
+↓
+
+Creates:
+
+Plain Text
+1
+prod-1.0.0
+Show more lines
+
+tag.
+
+Meaning:
+
+Successfully running in Production.
+
+Why This Process Exists
+
+Without staging:
+
+Plain Text
+1
+Developer
+2
+↓
+3
+PROD
+Show more lines
+
+Very risky.
+
+With staging:
+
+Plain Text
+1
+DEV
+2
+↓
+3
+INT
+4
+↓
+5
+PROD
+Show more lines
+
+Problems are found before users see them.
+
+Branching Strategies
+
+ADP supports 3 approaches.
+
+1. Simple Strategy
+
+Best for:
+
+Small teams
+Small projects
+
+Structure:
+
+Plain Text
+1
+main
+2
+feature-a
+3
+feature-b
+Show more lines
+
+Flow:
+
+Plain Text
+1
+Feature Branch
+2
+↓
+3
+Merge Main
+4
+↓
+5
+Release
+Show more lines
+
+Very easy to manage.
+
+2. Standard Strategy (Most Common)
+
+Uses an additional:
+
+Plain Text
+1
+develop
+Show more lines
+
+branch.
+
+Structure:
+
+Plain Text
+1
+main
+2
+develop
+3
+feature-a
+4
+feature-b
+Show more lines
+
+Flow:
+
+Plain Text
+1
+feature
+2
+↓
+3
+develop
+4
+↓
+5
+main
+6
+↓
+7
+release
+Show more lines
+
+Benefits:
+
+Cleaner development
+Safer releases
+Better for medium-sized teams
+3. GitFlow (Advanced)
+
+Used for large projects.
+
+Branches:
+
+Plain Text
+1
+main
+2
+develop
+3
+feature/*
+4
+release/*
+5
+hotfix/*
+Show more lines
+
+Supports:
+
+Parallel development
+Multiple releases
+Emergency fixes
+
+Example:
+
+Plain Text
+1
+hotfix/security-fix
+Show more lines
+
+can be released without waiting for major development work.
+
+GitHub Actions Explained
+
+These are the actions you'll use most often.
+
+01 - Deploy Branch to DEV
+
+Purpose:
+
+Plain Text
+1
+Deploy current branch to DEV
+Show more lines
+
+Used during development.
+
+02 - Remove Branch from DEV
+
+Purpose:
+
+Plain Text
+1
+Delete AWS resources
+2
+created by a branch
+Show more lines
+
+Example:
+
+Plain Text
+1
+feature-a no longer needed
+Show more lines
+
+↓
+
+Remove resources.
+
+⚠️ Be careful:
+
+Removing main branch resources can delete the entire Data Product.
+
+03 - Create Release
+
+Purpose:
+
+Plain Text
+1
+Create version tag
+Show more lines
+
+Example:
+
+Plain Text
+1
+dev-1.0.0
+Show more lines
+
+Also runs quality checks.
+
+04 - Deploy Release to INT
+
+Purpose:
+
+Plain Text
+1
+Deploy approved release to INT
+Show more lines
+
+Creates:
+
+Plain Text
+1
+int-1.0.0
+Show more lines
+
+tag.
+
+05 - Deploy Release to PROD
+
+Purpose:
+
+Plain Text
+1
+Deploy tested release to PROD
+Show more lines
+
+Creates:
+
+Plain Text
+1
+prod-1.0.0
+Show more lines
+
+tag.
+
+10 - Bootstrap Repository
+
+Purpose:
+
+Plain Text
+1
+Create initial infrastructure
+Show more lines
+
+Creates:
+
+Buckets
+IAM Roles
+Glue setup
+Environment configuration
+
+Used once at the beginning.
+
+11 - Update Repo From Template
+
+Purpose:
+
+Plain Text
+1
+Get latest template updates
+Show more lines
+
+Used when ADP team updates:
+
+CI/CD
+MeshCDK
+Configurations
+20 - Build Documentation
+
+Purpose:
+
+Plain Text
+1
+Generate MkDocs
+Show more lines
+
+Creates DP documentation site.
+
+31 - Copy Data Between Stages
+
+Purpose:
+
+Plain Text
+1
+DEV → INT
+2
+INT → PROD
+Show more lines
+
+Data migration/copy.
+
+32 - Sharing Permissions
+
+Purpose:
+
+Configure:
+
+Plain Text
+1
+Data Sharing 2.0
+Show more lines
+
+Cross-DP permissions.
+
+90/98/99 Security & Quality
+SonarQube
+Plain Text
+1
+Code Quality
+2
+Code Smells
+3
+Vulnerabilities
+Show more lines
+BlackDuck
+Plain Text
+1
+Open Source Security
+2
+License Compliance
+Show more lines
+Typical Daily Workflow of a DP Developer
+Plain Text
+1
+Create Feature Branch
+2
+↓
+3
+Write Glue Code
+4
+↓
+5
+01 Deploy Branch to DEV
+6
+↓
+7
+Test
+8
+↓
+9
+Merge to Main
+10
+↓
+11
+03 Create Release
+12
+↓
+13
+04 Deploy Release to INT
+14
+↓
+15
+Integration Testing
+16
+↓
+17
+05 Deploy Release to PROD
+Show more lines
+Interview Answer
+
+ADP follows a strict sequential deployment model: DEV → INT → PROD. Developers deploy feature branches to DEV using GitHub Actions, create a release from the main branch, deploy the release to INT for integration testing, and only after successful INT deployment can it be promoted to PROD. Git tags such as dev-x.x.x, int-x.x.x, and prod-x.x.x track promotion status and ensure environment consistency across the Data Product lifecycle.
+
+Provide your feedback on BizChat
+You said:
+if in interview they asking how many staging are in your project then how to answer in simpel
+Copilot said:
+
+In a simple interview answer, you can say:
+
+"Our project follows a 3-stage deployment process: DEV, INT, and PROD."
+
+Then explain briefly:
+
+DEV (Development): Developers test and validate new changes.
+INT (Integration): Integration and user testing are performed.
+PROD (Production): Final environment used by business users.
+
+A slightly better answer:
+
+"We have three environments: DEV, INT, and PROD. Changes are first deployed to DEV for development testing, then promoted to INT for integration/UAT testing, and finally deployed to PROD after approval. We use GitHub Actions and a CI/CD pipeline to move releases sequentially from DEV → INT → PROD."
+
+This is usually enough for a DevOps/Data Engineer interview.
+
+Provide your feedback on BizChat
+You said:
+waht is relase after dev deployemnt
+Copilot said:
+
+In your project, Release means:
+
+A tested and approved version of the code that is ready to move from DEV to INT.
+
+Simple Flow
+Plain Text
+1
+Feature Branch
+2
+↓
+3
+Deploy to DEV
+4
+↓
+5
+Testing Successful
+6
+↓
+7
+Create Release
+8
+↓
+9
+Deploy to INT
+10
+↓
+11
+Deploy to PROD
+Show more lines
+In ADP
+
+After deploying to DEV and verifying everything works:
+
+Glue jobs run successfully
+Data pipelines work
+No major bugs
+
+You run GitHub Action:
+
+Plain Text
+1
+03 - Create Release
+Show more lines
+
+This action:
+
+Runs quality checks
+Runs security/code scans
+Creates a version tag
+
+Example:
+
+Plain Text
+1
+dev-1.0.0
+Show more lines
+
+This tag means:
+
+"This version has successfully passed DEV and is approved for deployment to INT."
+
+Interview Answer
+
+If asked "What is a release?", you can say:
+
+"A release is a version of the application or data product that has been tested in the DEV environment and is tagged as ready for deployment to the next environment, such as INT and later PROD."
+
+Or even shorter:
+
+"After successful DEV testing, we create a release version (for example, dev-1.0.0), which is then promoted to INT and PROD through the CI/CD pipeline."
